@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body
+    style="height: 99.5vh; padding: 0; box-sizing: content-box; margin: 0px"
+  >
+    <iframe
+      id="graphxr-iframe"
+      src="https://graphxrdev.kineviz.com/share/644c12bcac86dc2e336edd4f/codesandbox/644c12c6ac86dc2e336edda0/23-04-28-14-39?theme=light"
+      width="100%"
+      height="100%"
+      frameborder="0"
+      padding="0"
+      origin="*"
+    ></iframe>
+    <script type="module">
+      import gxr from "https://cdn.skypack.dev/@kineviz/graphxr-api-iframe";
+
+      document
+        .getElementById("graphxr-iframe")
+        .addEventListener("load", async () => {
+          // Wait a few seconds for GraphXR to load.
+          setTimeout(async () => {
+            const queryParams = new URLSearchParams(window.location.search);
+            const dataParam = queryParams.get("data");
+            const sourceData = queryParams.get("source");
+            const targetData = queryParams.get("target");
+            console.log(queryParams);
+
+            console.log(dataParam, sourceData, targetData);
+
+            if (!dataParam) {
+              console.log("Missing data or edges parameter.");
+              return;
+            }
+
+            const nodes = JSON.parse(dataParam);
+            const source = JSON.parse(sourceData);
+            const target = JSON.parse(targetData);
+            await gxr().graph().clear();
+            // Add node
+            const mapEdges = source.map((eg, i) => ({
+              sourceId: source[i],
+              targetId: target[i],
+            }));
+            await gxr().graph().add(nodes).add(mapEdges).sleep(0).forceLayout();
+          }, 3000);
+        });
+    </script>
+  </body>
+</html>
