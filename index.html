@@ -24,31 +24,40 @@
         .getElementById("graphxr-iframe")
         .addEventListener("load", async () => {
           // Wait a few seconds for GraphXR to load.
-          setTimeout(async () => {
-            const queryParams = new URLSearchParams(window.location.search);
-            const dataParam = queryParams.get("data");
-            const sourceData = queryParams.get("source");
-            const targetData = queryParams.get("target");
-            console.log(queryParams);
+          window.addEventListener("message", (event) => {
+            const data = event.data;
 
-            console.log(dataParam, sourceData, targetData);
+            // Access the values sent through postMessage
+            const mapNodes = data.mapNodes;
+            const source = data.source;
+            const target = data.target;
 
-            if (!dataParam) {
-              console.log("Missing data or edges parameter.");
-              return;
-            }
+            console.log("Received data:", mapNodes, source, target);
 
-            const nodes = JSON.parse(dataParam);
-            const source = JSON.parse(sourceData);
-            const target = JSON.parse(targetData);
-            await gxr().graph().clear();
-            // Add node
-            const mapEdges = source.map((eg, i) => ({
-              sourceId: source[i],
-              targetId: target[i],
-            }));
-            await gxr().graph().add(nodes).add(mapEdges).sleep(0).forceLayout();
-          }, 3000);
+            setTimeout(async () => {
+              if (!dataParam) {
+                console.log("Missing data or edges parameter.");
+                return;
+              }
+
+              const nodes = JSON.parse(mapNodes);
+              const sourceData = JSON.parse(source);
+              const targetData = JSON.parse(target);
+              console.log(nodes);
+              await gxr().graph().clear();
+              // Add node
+              const mapEdges = sourceData.map((eg, i) => ({
+                sourceId: sourceData[i],
+                targetId: targetData[i],
+              }));
+              await gxr()
+                .graph()
+                .add(nodes)
+                .add(mapEdges)
+                .sleep(0)
+                .forceLayout();
+            }, 3000);
+          });
         });
     </script>
   </body>
