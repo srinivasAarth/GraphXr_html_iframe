@@ -37,11 +37,12 @@
               console.log("Missing data or edges parameter.");
               return;
             }
+
+            const nodes = JSON.parse(mapNodes);
+            const sourceData = JSON.parse(source);
+            const targetData = JSON.parse(target);
+            console.log(nodes);
             setTimeout(async () => {
-              const nodes = JSON.parse(mapNodes);
-              const sourceData = JSON.parse(source);
-              const targetData = JSON.parse(target);
-              console.log(nodes);
               await gxr().graph().clear();
               // Add node
               const mapEdges = sourceData.map((eg, i) => ({
