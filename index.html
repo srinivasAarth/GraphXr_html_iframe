@@ -44,13 +44,14 @@
             const targetData = target;
 
             console.log(nodes);
+            const mapEdges = sourceData.map((eg, i) => ({
+              sourceId: sourceData[i],
+              targetId: targetData[i],
+            }));
             setTimeout(async () => {
               await gxr().graph().clear();
               // Add node
-              const mapEdges = sourceData.map((eg, i) => ({
-                sourceId: sourceData[i],
-                targetId: targetData[i],
-              }));
+
               await gxr()
                 .graph()
                 .add(nodes)
