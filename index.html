@@ -24,22 +24,20 @@
         .getElementById("graphxr-iframe")
         .addEventListener("load", async () => {
           // Wait a few seconds for GraphXR to load.
+          window.addEventListener("message", async (event) => {
+            const data = event.data;
 
-          setTimeout(async () => {
-            window.addEventListener("message", async (event) => {
-              const data = event.data;
+            // Access the values sent through postMessage
+            var mapNodes = data.mapNodes;
+            var source = data.source;
+            var target = data.target;
 
-              // Access the values sent through postMessage
-              const mapNodes = data.mapNodes;
-              const source = data.source;
-              const target = data.target;
-
-              console.log("Received data:", mapNodes, source, target);
-              if (!mapNodes) {
-                console.log("Missing data or edges parameter.");
-                return;
-              }
-
+            console.log("Received data:", mapNodes, source, target);
+            if (!mapNodes) {
+              console.log("Missing data or edges parameter.");
+              return;
+            }
+            setTimeout(async () => {
               const nodes = JSON.parse(mapNodes);
               const sourceData = JSON.parse(source);
               const targetData = JSON.parse(target);
@@ -56,8 +54,8 @@
                 .add(mapEdges)
                 .sleep(0)
                 .forceLayout();
-            });
-          }, 3000);
+            }, 3000);
+          });
         });
     </script>
   </body>
