@@ -38,9 +38,11 @@
               return;
             }
 
-            const nodes = JSON.parse(mapNodes);
-            const sourceData = JSON.parse(source);
-            const targetData = JSON.parse(target);
+            console.log("Received data: 22", mapNodes, source, target);
+            const nodes = mapNodes;
+            const sourceData = source;
+            const targetData = target;
+
             console.log(nodes);
             setTimeout(async () => {
               await gxr().graph().clear();
