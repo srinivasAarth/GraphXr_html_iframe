@@ -47,13 +47,16 @@
               sourceId: sourceData[i],
               targetId: targetData[i],
             }));
-
-            console.log(gxr());
-
-            await gxr().graph().clear();
-            // Add node
-
-            await gxr().graph().add(nodes).add(mapEdges).sleep(0).forceLayout();
+            setTimeout(async () => {
+              await gxr().graph().clear();
+              // Add node
+              await gxr()
+                .graph()
+                .add(nodes)
+                .add(mapEdges)
+                .sleep(0)
+                .forceLayout();
+            }, 2000);
           });
         });
     </script>
