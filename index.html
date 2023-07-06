@@ -50,13 +50,13 @@
             setTimeout(async () => {
               // Add node
               await gxr()
-                .clear()
                 .graph()
+                .clear()
                 .add(nodes)
                 .add(mapEdges)
                 .sleep(0)
                 .forceLayout();
-            }, 0);
+            }, 2000);
           });
         });
     </script>
