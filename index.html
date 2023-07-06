@@ -48,10 +48,10 @@
               targetId: targetData[i],
             }));
             setTimeout(async () => {
-              await gxr().graph().clear();
               // Add node
               await gxr()
                 .graph()
+                .clear()
                 .add(nodes)
                 .add(mapEdges)
                 .sleep(0)
