@@ -48,11 +48,10 @@
               targetId: targetData[i],
             }));
             setTimeout(async () => {
-              // await gxr().graph().clear();
               // Add node
 
+              await gxr().graph().clear();
               await gxr()
-                .clear()
                 .graph()
                 .add(nodes)
                 .add(mapEdges)
@@ -64,7 +63,7 @@
               //   bin: "seasonNumber",
               //   dimension: "x",
               // });
-            }, 4000);
+            }, 0);
           });
         });
     </script>
