@@ -59,10 +59,10 @@
                 .forceLayout();
 
               // Equally space Nodes on the x-axis and bin the Nodes by "seasonNumber"
-              // await gxr().distributionBy({
-              //   bin: "seasonNumber",
-              //   dimension: "x",
-              // });
+              await gxr().distributionBy({
+                bin: 100,
+                dimension: "x",
+              });
             }, 4000);
           });
         });
