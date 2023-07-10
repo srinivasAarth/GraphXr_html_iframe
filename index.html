@@ -48,9 +48,11 @@
               targetId: targetData[i],
             }));
             setTimeout(async () => {
+              await gxr().graph().clear();
+            }, 0);
+            setTimeout(async () => {
               // Add node
 
-              await gxr().graph().clear();
               await gxr()
                 .graph()
                 .add(nodes)
@@ -63,7 +65,7 @@
               //   bin: 100,
               //   dimension: "x",
               // });
-            }, 4000);
+            }, 3000);
           });
         });
     </script>
